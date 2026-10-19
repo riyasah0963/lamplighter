@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 82" role="img" aria-label="Core gameplay loop" font-family="Inter, sans-serif"><rect width="760" height="82" fill="#ffffff"/>
+    <defs><marker id="a0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8f8d85"/></marker></defs>
+    <g fill="none" stroke="#8f8d85" stroke-width="1.2">
+      <path d="M131 26H158" marker-end="url(#a0)"/>
+      <path d="M288 26H315" marker-end="url(#a0)"/>
+      <path d="M445 26H472" marker-end="url(#a0)"/>
+      <path d="M602 26H629" marker-end="url(#a0)"/>
+      <path d="M537 48V62H66V50" marker-end="url(#a0)"/>
+    </g>
+    <g fill="#fff" stroke="#9a978e" stroke-width="1">
+      <rect x="1" y="4" width="130" height="44" rx="7"/>
+      <rect x="158" y="4" width="130" height="44" rx="7"/>
+      <rect x="315" y="4" width="130" height="44" rx="7"/>
+      <rect x="472" y="4" width="130" height="44" rx="7"/>
+    </g>
+    <rect x="629" y="4" width="130" height="44" rx="7" fill="#fbecd2" stroke="#d98a1c" stroke-width="1.8"/>
+    <g font-size="12" fill="#1d1c1a" text-anchor="middle">
+      <text x="66" y="22">Scout the dark</text><text x="66" y="38">for an unlit lamp</text>
+      <text x="223" y="22">Plan a route</text><text x="223" y="38">past the shadows</text>
+      <text x="380" y="22">Light it: safe zone</text><text x="380" y="38">and oil refill</text>
+      <text x="537" y="30">Every lamp lit?</text>
+      <text x="694" y="22" font-weight="700" fill="#7a4a08">Dawn breaks:</text><text x="694" y="38" font-weight="700" fill="#7a4a08">next district</text>
+    </g>
+    <g font-size="10.5" fill="#5c5a54" text-anchor="middle">
+      <text x="615" y="19">yes</text>
+      <text x="300" y="76">no: scout for the next lamp</text>
+    </g>
+  </svg>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 196" role="img" aria-label="UML sketch of the architecture" font-family="Inter, sans-serif"><rect width="760" height="196" fill="#ffffff"/>
+      <defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8f8d85"/></marker></defs>
+      <g fill="#f5f3ee" stroke="#dcd9d0" stroke-width="1">
+        <rect x="2" y="2" width="244" height="192" rx="8"/>
+        <rect x="258" y="2" width="244" height="192" rx="8"/>
+        <rect x="514" y="2" width="244" height="192" rx="8"/>
+      </g>
+      <g font-size="12" font-weight="700" fill="#7a4a08">
+        <text x="16" y="18">Core</text><text x="272" y="18">Gameplay</text><text x="528" y="18">Systems</text>
+      </g>
+      <g fill="none" stroke="#8f8d85" stroke-width="1.2">
+        <path d="M124 58V68" marker-end="url(#a2)"/>
+        <path d="M124 100V110" marker-end="url(#a2)"/>
+        <path d="M232 84H252V42H272" marker-end="url(#a2)"/>
+        <path d="M380 58V68" marker-end="url(#a2)"/>
+        <path d="M380 110V100" stroke-dasharray="3 2" marker-end="url(#a2)"/>
+        <path d="M380 142V152" marker-end="url(#a2)"/>
+        <path d="M528 42H488" marker-end="url(#a2)"/>
+        <path d="M488 84H528" marker-end="url(#a2)"/>
+        <path d="M488 126H528" marker-end="url(#a2)"/>
+      </g>
+      <g fill="#fff" stroke="#9a978e" stroke-width="1">
+        <rect x="16" y="26" width="216" height="32" rx="6"/><rect x="16" y="68" width="216" height="32" rx="6"/>
+        <rect x="16" y="110" width="216" height="32" rx="6"/><rect x="16" y="152" width="216" height="32" rx="6"/>
+        <rect x="272" y="26" width="216" height="32" rx="6"/><rect x="272" y="68" width="216" height="32" rx="6"/>
+        <rect x="272" y="110" width="216" height="32" rx="6"/><rect x="272" y="152" width="216" height="32" rx="6"/>
+        <rect x="528" y="26" width="216" height="32" rx="6"/><rect x="528" y="68" width="216" height="32" rx="6"/>
+        <rect x="528" y="110" width="216" height="32" rx="6"/><rect x="528" y="152" width="216" height="32" rx="6"/>
+      </g>
+      <g text-anchor="middle">
+        <g font-size="12.5" font-weight="700" fill="#1d1c1a">
+          <text x="124" y="39">Game</text><text x="124" y="81">SceneManager</text>
+          <text x="124" y="123">Scene «abstract»</text><text x="124" y="165">ResourceManager</text>
+          <text x="380" y="39">PlayScene : Scene</text><text x="380" y="81">Entity «abstract»</text>
+          <text x="380" y="123">Enemy : Entity</text><text x="380" y="165">EnemyState «abstract»</text>
+          <text x="636" y="39">InputHandler</text><text x="636" y="81">EventQueue</text>
+          <text x="636" y="123">LightingSystem</text><text x="636" y="165">LevelLoader</text>
+        </g>
+        <g font-size="11" fill="#5c5a54">
+          <text x="124" y="52">main loop, owns the window</text><text x="124" y="94">scene stack (State)</text>
+          <text x="124" y="136">Menu, Play, Pause, Result</text><text x="124" y="178">caches textures and sounds</text>
+          <text x="380" y="52">owns level and entities</text><text x="380" y="94">Player, Lamp, OilCan</text>
+          <text x="380" y="136">Creeper, Moth</text><text x="380" y="178">Patrol, Chase, Flee (State)</text>
+          <text x="636" y="52">keys to Commands (Command)</text><text x="636" y="94">events to audio and HUD</text>
+          <text x="636" y="136">light map render target</text><text x="636" y="178">level and config text files</text>
+        </g>
+      </g>
+    </svg>
