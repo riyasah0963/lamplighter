@@ -1,0 +1,35 @@
+# Visual Studio 2022 (C++)
+.vs/
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
+ipch/
+*.aps
+*.ncb
+*.sdf
+
+# Build output
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]uild/
+[Oo]ut/
+*.obj
+*.pch
+*.ilk
+*.idb
+*.tlog
+*.lastbuildstate
+*.log
+
+# Editors and OS
+.vscode/*
+!.vscode/tasks.json
+!.vscode/settings.json
+.DS_Store
+Thumbs.db
+
+# Submission zips are built locally, never committed
+*.zip
