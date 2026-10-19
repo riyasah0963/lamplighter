@@ -10,10 +10,12 @@ ipch/
 *.sdf
 
 # Build output
+# x64/ and x86/ are anchored to the repo root so external/*/lib/x64 (the SDL libs markers need) is still committed
 [Dd]ebug/
 [Rr]elease/
-x64/
-x86/
+/x64/
+/x86/
+/obj/
 [Bb]uild/
 [Oo]ut/
 *.obj
