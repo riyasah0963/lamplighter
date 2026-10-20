@@ -26,7 +26,7 @@ void MenuScene::update(double /*dt*/)
 void MenuScene::render(SDL_Renderer* renderer)
 {
     fillScreen(renderer, 12, 14, 28);  // night blue
-    drawCentredText(renderer, 240.0f, "LAMPLIGHTER", 6.0f);
+    drawCentredText(renderer, 280.0f, "LAMPLIGHTER", 6.0f);
     drawCentredText(renderer, 400.0f, "Enter: start    Esc: quit", 2.0f);
-    drawCentredText(renderer, 660.0f, "F11: fullscreen", 2.0f);
+    drawCentredText(renderer, 680.0f, "F11: fullscreen", 2.0f);
 }
