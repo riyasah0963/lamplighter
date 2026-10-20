@@ -25,7 +25,7 @@ void PauseScene::update(double /*dt*/)
 
 void PauseScene::render(SDL_Renderer* renderer)
 {
-    fillScreen(renderer, 0, 0, 0, 160);  // semi-transparent black dims the Play scene drawn underneath
-    drawCentredText(renderer, 260.0f, "PAUSED", 6.0f);
+    fillScreen(renderer, 0, 0, 0, 180);  // semi-transparent black dims the Play scene drawn underneath
+    drawCentredText(renderer, 420.0f, "PAUSED", 6.0f);
     drawCentredText(renderer, 400.0f, "Esc/P: resume    Q: quit to menu", 2.0f);
 }
