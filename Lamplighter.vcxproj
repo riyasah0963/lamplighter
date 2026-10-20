@@ -110,13 +110,25 @@ xcopy /E /I /Y /D /Q "$(SolutionDir)config" "$(OutDir)config"</Command>
   </ItemDefinitionGroup>
 
   <ItemGroup>
+    <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />
+    <ClCompile Include="src\scenes\MenuScene.cpp" />
+    <ClCompile Include="src\scenes\PauseScene.cpp" />
+    <ClCompile Include="src\scenes\PlayScene.cpp" />
+    <ClCompile Include="src\scenes\ResultScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\DrawHelpers.h" />
+    <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\GameConstants.h" />
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\SdlHandles.h" />
+    <ClInclude Include="include\scenes\MenuScene.h" />
+    <ClInclude Include="include\scenes\PauseScene.h" />
+    <ClInclude Include="include\scenes\PlayScene.h" />
+    <ClInclude Include="include\scenes\ResultScene.h" />
   </ItemGroup>
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
