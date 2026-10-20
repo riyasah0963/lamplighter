@@ -25,6 +25,15 @@ struct SdlRendererDeleter
 using WindowPtr = std::unique_ptr<SDL_Window, SdlWindowDeleter>;
 using RendererPtr = std::unique_ptr<SDL_Renderer, SdlRendererDeleter>;
 
+// Most SDL3 functions return false on failure; this turns that into an exception carrying SDL's reason.
+inline void checkSdl(bool succeeded, const std::string& call)
+{
+    if (!succeeded)
+    {
+        throw std::runtime_error(call + " failed: " + SDL_GetError());
+    }
+}
+
 // Initialises SDL when constructed and shuts it down when destroyed.
 // Create it before any other SDL object so it is destroyed after all of them.
 class SdlContext
