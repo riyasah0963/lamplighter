@@ -10,3 +10,6 @@ inline constexpr int kLogicalHeight = 720;
 
 // How many fixed-step updates the game logic runs per second.
 inline constexpr int kUpdatesPerSecond = 60;
+
+// Size of one map tile on screen, in pixels. A 40x22 district fills the 1280x720 game area.
+inline constexpr float kTileSize = 32.0f;
