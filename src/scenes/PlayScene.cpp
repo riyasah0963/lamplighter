@@ -4,9 +4,18 @@
 #include <memory>
 
 #include "DrawHelpers.h"
+#include "GameConstants.h"
+#include "GamePaths.h"
+#include "LevelLoader.h"
 #include "SceneManager.h"
 #include "scenes/PauseScene.h"
 #include "scenes/ResultScene.h"
+
+PlayScene::PlayScene(SceneManager& scenes)
+    : Scene(scenes)
+    , level_(LevelLoader::load(gamePath("levels/district1.txt")))
+{
+}
 
 void PlayScene::handleEvent(const SDL_Event& event)
 {
@@ -31,10 +40,58 @@ void PlayScene::update(double dt)
     elapsedSeconds_ += dt;
 }
 
+SDL_FRect PlayScene::tileRect(TilePos pos, float inset) const
+{
+    // Centre the map in the 1280x720 game area. The scrolling camera from the proposal replaces
+    // this once districts are bigger than the screen.
+    const float mapLeft = (static_cast<float>(kLogicalWidth) - static_cast<float>(level_.width()) * kTileSize) / 2.0f;
+    const float mapTop = (static_cast<float>(kLogicalHeight) - static_cast<float>(level_.height()) * kTileSize) / 2.0f;
+
+    return SDL_FRect{ mapLeft + static_cast<float>(pos.x) * kTileSize + inset,
+                      mapTop + static_cast<float>(pos.y) * kTileSize + inset,
+                      kTileSize - 2.0f * inset,
+                      kTileSize - 2.0f * inset };
+}
+
 void PlayScene::render(SDL_Renderer* renderer)
 {
-    fillScreen(renderer, 20, 24, 36);
-    drawCentredText(renderer, 200.0f, "DISTRICT 1  (placeholder)", 4.0f);
-    drawCentredText(renderer, 320.0f, std::format("Time: {:.1f} s", elapsedSeconds_), 3.0f);
-    drawCentredText(renderer, 600.0f, "Esc/P: pause    F1: win    F2: lose   (test keys)", 2.0f);
+    fillScreen(renderer, 8, 9, 14);
+
+    // The ground: walls and floor. Placeholder colours until the sprites and lighting arrive.
+    for (int y = 0; y < level_.height(); ++y)
+    {
+        for (int x = 0; x < level_.width(); ++x)
+        {
+            if (level_.isWall(x, y))
+            {
+                fillRect(renderer, tileRect({ x, y }), 58, 52, 70);
+            }
+            else
+            {
+                fillRect(renderer, tileRect({ x, y }), 24, 26, 36);
+            }
+        }
+    }
+
+    // Starting positions of everything in the district, drawn as smaller coloured squares.
+    const LevelObjects& objects = level_.objects();
+    for (const TilePos& lamp : objects.lamps)
+    {
+        fillRect(renderer, tileRect(lamp, 8.0f), 120, 104, 60);  // dull brass: unlit lamp
+    }
+    for (const TilePos& oilCan : objects.oilCans)
+    {
+        fillRect(renderer, tileRect(oilCan, 10.0f), 200, 120, 40);
+    }
+    for (const TilePos& creeper : objects.creeperSpawns)
+    {
+        fillRect(renderer, tileRect(creeper, 6.0f), 150, 120, 220);
+    }
+    for (const TilePos& moth : objects.mothSpawns)
+    {
+        fillRect(renderer, tileRect(moth, 10.0f), 225, 205, 255);
+    }
+    fillRect(renderer, tileRect(objects.playerStart, 6.0f), 235, 225, 200);
+
+    drawCentredText(renderer, 12.0f, std::format("District 1    Time {:.1f} s    Esc/P: pause    F1: win    F2: lose", elapsedSeconds_), 1.0f);
 }

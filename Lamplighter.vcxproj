@@ -111,6 +111,7 @@ xcopy /E /I /Y /D /Q "$(SolutionDir)config" "$(OutDir)config"</Command>
 
   <ItemGroup>
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GamePaths.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\LevelLoader.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -124,6 +125,7 @@ xcopy /E /I /Y /D /Q "$(SolutionDir)config" "$(OutDir)config"</Command>
     <ClInclude Include="include\DrawHelpers.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GameConstants.h" />
+    <ClInclude Include="include\GamePaths.h" />
     <ClInclude Include="include\Level.h" />
     <ClInclude Include="include\LevelLoader.h" />
     <ClInclude Include="include\Scene.h" />

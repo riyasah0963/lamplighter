@@ -18,6 +18,9 @@
     <ClCompile Include="src\Game.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\GamePaths.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\Level.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -51,6 +54,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\GameConstants.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GamePaths.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Level.h">

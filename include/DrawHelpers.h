@@ -18,6 +18,13 @@ inline void fillScreen(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, Uint8 
     checkSdl(SDL_RenderFillRect(renderer, &screen), "SDL_RenderFillRect");
 }
 
+// Fills one rectangle with a solid colour.
+inline void fillRect(SDL_Renderer* renderer, const SDL_FRect& rect, Uint8 r, Uint8 g, Uint8 b)
+{
+    checkSdl(SDL_SetRenderDrawColor(renderer, r, g, b, SDL_ALPHA_OPAQUE), "SDL_SetRenderDrawColor");
+    checkSdl(SDL_RenderFillRect(renderer, &rect), "SDL_RenderFillRect");
+}
+
 // Draws one line of text centred across the screen, in SDL3's built-in 8x8 debug font enlarged by `scale`.
 // Temporary: the BitmapFont class from the proposal replaces this.
 inline void drawCentredText(SDL_Renderer* renderer, float y, const std::string& text, float scale)
