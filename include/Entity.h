@@ -19,6 +19,7 @@ public:
 
     // The entity's box on the map, used for drawing and collision.
     SDL_FRect bounds() const { return SDL_FRect{ x_, y_, width_, height_ }; }
+    SDL_FPoint centre() const { return SDL_FPoint{ x_ + width_ / 2.0f, y_ + height_ / 2.0f }; }
 
 protected:
     Entity(float x, float y, float width, float height)
