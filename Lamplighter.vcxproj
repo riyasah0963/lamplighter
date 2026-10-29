@@ -114,6 +114,9 @@ xcopy /E /I /Y /D /Q "$(SolutionDir)config" "$(OutDir)config"</Command>
     <ClCompile Include="src\GamePaths.cpp" />
     <ClCompile Include="src\InputHandler.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Lamp.cpp" />
+    <ClCompile Include="src\LightingSystem.cpp" />
+    <ClCompile Include="src\OilCan.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\LevelLoader.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -133,6 +136,11 @@ xcopy /E /I /Y /D /Q "$(SolutionDir)config" "$(OutDir)config"</Command>
     <ClInclude Include="include\Level.h" />
     <ClInclude Include="include\LevelLoader.h" />
     <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\Balance.h" />
+    <ClInclude Include="include\Command.h" />
+    <ClInclude Include="include\Lamp.h" />
+    <ClInclude Include="include\LightingSystem.h" />
+    <ClInclude Include="include\OilCan.h" />
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\SdlHandles.h" />

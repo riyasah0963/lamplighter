@@ -27,6 +27,15 @@
     <ClCompile Include="src\Player.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Lamp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LightingSystem.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OilCan.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\Level.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -78,6 +87,21 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Player.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Balance.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Command.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Lamp.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LightingSystem.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\OilCan.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Scene.h">

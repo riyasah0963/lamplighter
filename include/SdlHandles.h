@@ -22,8 +22,20 @@ struct SdlRendererDeleter
     void operator()(SDL_Renderer* renderer) const noexcept { SDL_DestroyRenderer(renderer); }
 };
 
+struct SdlTextureDeleter
+{
+    void operator()(SDL_Texture* texture) const noexcept { SDL_DestroyTexture(texture); }
+};
+
+struct SdlSurfaceDeleter
+{
+    void operator()(SDL_Surface* surface) const noexcept { SDL_DestroySurface(surface); }
+};
+
 using WindowPtr = std::unique_ptr<SDL_Window, SdlWindowDeleter>;
 using RendererPtr = std::unique_ptr<SDL_Renderer, SdlRendererDeleter>;
+using TexturePtr = std::unique_ptr<SDL_Texture, SdlTextureDeleter>;
+using SurfacePtr = std::unique_ptr<SDL_Surface, SdlSurfaceDeleter>;
 
 // Most SDL3 functions return false on failure; this turns that into an exception carrying SDL's reason.
 inline void checkSdl(bool succeeded, const std::string& call)
