@@ -14,6 +14,7 @@
 PlayScene::PlayScene(SceneManager& scenes)
     : Scene(scenes)
     , level_(LevelLoader::load(gamePath("levels/district1.txt")))
+    , player_(level_, input_, level_.objects().playerStart)
 {
 }
 
@@ -38,17 +39,22 @@ void PlayScene::handleEvent(const SDL_Event& event)
 void PlayScene::update(double dt)
 {
     elapsedSeconds_ += dt;
+    player_.update(dt);
+}
+
+SDL_FPoint PlayScene::mapOrigin() const
+{
+    // Centre the map in the 1280x720 game area. The scrolling camera from the proposal replaces
+    // this once districts are bigger than the screen.
+    return SDL_FPoint{ (static_cast<float>(kLogicalWidth) - static_cast<float>(level_.width()) * kTileSize) / 2.0f,
+                       (static_cast<float>(kLogicalHeight) - static_cast<float>(level_.height()) * kTileSize) / 2.0f };
 }
 
 SDL_FRect PlayScene::tileRect(TilePos pos, float inset) const
 {
-    // Centre the map in the 1280x720 game area. The scrolling camera from the proposal replaces
-    // this once districts are bigger than the screen.
-    const float mapLeft = (static_cast<float>(kLogicalWidth) - static_cast<float>(level_.width()) * kTileSize) / 2.0f;
-    const float mapTop = (static_cast<float>(kLogicalHeight) - static_cast<float>(level_.height()) * kTileSize) / 2.0f;
-
-    return SDL_FRect{ mapLeft + static_cast<float>(pos.x) * kTileSize + inset,
-                      mapTop + static_cast<float>(pos.y) * kTileSize + inset,
+    const SDL_FPoint origin = mapOrigin();
+    return SDL_FRect{ origin.x + static_cast<float>(pos.x) * kTileSize + inset,
+                      origin.y + static_cast<float>(pos.y) * kTileSize + inset,
                       kTileSize - 2.0f * inset,
                       kTileSize - 2.0f * inset };
 }
@@ -91,7 +97,7 @@ void PlayScene::render(SDL_Renderer* renderer)
     {
         fillRect(renderer, tileRect(moth, 10.0f), 225, 205, 255);
     }
-    fillRect(renderer, tileRect(objects.playerStart, 6.0f), 235, 225, 200);
+    player_.render(renderer, mapOrigin());
 
-    drawCentredText(renderer, 12.0f, std::format("District 1    Time {:.1f} s    Esc/P: pause    F1: win    F2: lose", elapsedSeconds_), 1.0f);
+    drawCentredText(renderer, 12.0f, std::format("District 1    Time {:.1f} s    WASD/arrows: move    Esc/P: pause    F1: win    F2: lose", elapsedSeconds_), 1.0f);
 }

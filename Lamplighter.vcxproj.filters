@@ -21,6 +21,12 @@
     <ClCompile Include="src\GamePaths.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\InputHandler.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Player.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\Level.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -50,6 +56,9 @@
     <ClInclude Include="include\DrawHelpers.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\Entity.h">
+      <Filter>include</Filter>
+    </ClInclude>
     <ClInclude Include="include\Game.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -59,10 +68,16 @@
     <ClInclude Include="include\GamePaths.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\InputHandler.h">
+      <Filter>include</Filter>
+    </ClInclude>
     <ClInclude Include="include\Level.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\LevelLoader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Player.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Scene.h">
