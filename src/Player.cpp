@@ -12,12 +12,6 @@ namespace
 
     // Smaller than a tile, so the player fits through 1-tile gaps and does not snag on corners.
     constexpr float kHitboxSize = 20.0f;
-
-    // Which tile column or row a map-pixel coordinate falls in.
-    int tileIndex(float pixels)
-    {
-        return static_cast<int>(std::floor(pixels / kTileSize));
-    }
 }
 
 Player::Player(const Level& level, const InputHandler& input, const Balance& balance, TilePos start)
@@ -55,42 +49,10 @@ void Player::update(double dt)
 
     const float distance = balance_.playerSpeedTilesPerSecond * kTileSize * static_cast<float>(dt);
 
-    // Moving X and Y separately lets the player slide along a wall: if the X move hits a wall,
-    // the Y move still happens. At 60 updates per second each step is about 2 pixels, far less
-    // than a tile, so the player can never skip through a wall.
-    moveAlongAxis(direction.x * distance, 0.0f);
-    moveAlongAxis(0.0f, direction.y * distance);
-}
-
-void Player::moveAlongAxis(float dx, float dy)
-{
-    x_ += dx;
-    y_ += dy;
-
-    // The range of tiles the hitbox now overlaps. The tiny margin stops a box that exactly
-    // touches the next tile's edge from counting as being inside it.
-    constexpr float kEdgeMargin = 0.001f;
-    const int left = tileIndex(x_);
-    const int right = tileIndex(x_ + width_ - kEdgeMargin);
-    const int top = tileIndex(y_);
-    const int bottom = tileIndex(y_ + height_ - kEdgeMargin);
-
-    for (int ty = top; ty <= bottom; ++ty)
-    {
-        for (int tx = left; tx <= right; ++tx)
-        {
-            if (!level_.isWall(tx, ty))
-            {
-                continue;
-            }
-
-            // Push back out of the wall on the side the player came from.
-            if (dx > 0.0f) { x_ = static_cast<float>(tx) * kTileSize - width_; }
-            if (dx < 0.0f) { x_ = static_cast<float>(tx + 1) * kTileSize; }
-            if (dy > 0.0f) { y_ = static_cast<float>(ty) * kTileSize - height_; }
-            if (dy < 0.0f) { y_ = static_cast<float>(ty + 1) * kTileSize; }
-        }
-    }
+    // At 60 updates per second each step is about 2 pixels, far less than a tile,
+    // so the player can never skip through a wall.
+    moveAlongAxis(level_, direction.x * distance, 0.0f);
+    moveAlongAxis(level_, 0.0f, direction.y * distance);
 }
 
 void Player::render(SDL_Renderer* renderer, SDL_FPoint mapOrigin) const

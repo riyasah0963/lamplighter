@@ -17,4 +17,12 @@ struct Balance
     float lampReachTiles = 1.5f;           // how close the player must stand to light a lamp with E
 
     int moonlight = 45;                    // brightness of the unlit dark, 0 (pitch black) to 255
+
+    // A light's glow fades to nothing at its edge, so the part that counts as "in the light"
+    // (repels enemies, refills oil) is this fraction of its radius: the bright part you can see.
+    float lightCoreFraction = 0.6f;
+
+    float creeperSpeedTilesPerSecond = 3.0f;
+    float creeperSightTiles = 7.0f;            // how far a Creeper notices the player with the lantern open
+    float creeperSightTilesLanternShut = 3.0f; // a shut lantern hides the player, so it must get much closer
 };

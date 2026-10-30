@@ -2,9 +2,11 @@
 
 #include <SDL3/SDL.h>
 
-// Base class for everything that lives on the map: the player now, and lamps, oil cans and
-// enemies later (see the UML sketch). Each entity updates itself once per fixed step and
-// draws itself (Update Method pattern).
+#include "Level.h"
+
+// Base class for everything that lives on the map: the player, lamps, oil cans and enemies
+// (see the UML sketch). Each entity updates itself once per fixed step and draws itself
+// (Update Method pattern).
 //
 // Positions are in map pixels: (0, 0) is the top-left corner of the map's top-left tile.
 class Entity
@@ -26,6 +28,11 @@ protected:
         : x_(x), y_(y), width_(width), height_(height)
     {
     }
+
+    // Moves along one axis only (one of dx, dy must be 0), then pushes the entity back out of any
+    // wall it entered. Returns true if a wall stopped it. Moving X and Y in separate calls lets an
+    // entity slide along a wall: if the X move is blocked, the Y move still happens.
+    bool moveAlongAxis(const Level& level, float dx, float dy);
 
     float x_;
     float y_;
