@@ -29,6 +29,7 @@ PlayScene::PlayScene(SceneManager& scenes)
     , level_(LevelLoader::load(gamePath("levels/district1.txt")))
     , player_(level_, input_, balance_, level_.objects().playerStart)
     , lighting_(balance_.moonlight)
+    , clockSecondsLeft_(balance_.clockSeconds)
 {
     for (const TilePos& tile : level_.objects().lamps)
     {
@@ -50,15 +51,6 @@ void PlayScene::handleEvent(const SDL_Event& event)
     {
         scenes().requestPush(std::make_unique<PauseScene>(scenes()));  // Play stays underneath, frozen
     }
-    // Test keys until the lose conditions exist (hearts or clock run out).
-    else if (isKeyPress(event, SDLK_F1))
-    {
-        scenes().requestSwitchTo(std::make_unique<ResultScene>(scenes(), true, elapsedSeconds_));
-    }
-    else if (isKeyPress(event, SDLK_F2))
-    {
-        scenes().requestSwitchTo(std::make_unique<ResultScene>(scenes(), false, elapsedSeconds_));
-    }
     else if (const Command* command = input_.commandFor(event))
     {
         command->execute(*this);  // E lights a lamp, Space opens or shuts the lantern
@@ -68,6 +60,7 @@ void PlayScene::handleEvent(const SDL_Event& event)
 void PlayScene::update(double dt)
 {
     elapsedSeconds_ += dt;
+    clockSecondsLeft_ -= dt;
     player_.update(dt);
     collectOilCans();
     refillFromLitLamps(dt);
@@ -78,10 +71,36 @@ void PlayScene::update(double dt)
         enemy->update(dt);
     }
 
-    // Win: every lamp in the district is lit.
+    checkEnemyHits();
+
+    // Win: every lamp in the district is lit. Lose: out of hearts, or the candle-clock burned out.
     if (litLampCount() == static_cast<int>(lamps_.size()))
     {
         scenes().requestSwitchTo(std::make_unique<ResultScene>(scenes(), true, elapsedSeconds_));
+    }
+    else if (player_.hearts() == 0 || clockSecondsLeft_ <= 0.0)
+    {
+        scenes().requestSwitchTo(std::make_unique<ResultScene>(scenes(), false, elapsedSeconds_));
+    }
+}
+
+void PlayScene::checkEnemyHits()
+{
+    // A hit only counts in darkness: an open lantern or a lit lamp protects the player.
+    if (player_.lanternOpen() || litLampCovering(player_.centre()) != nullptr)
+    {
+        return;
+    }
+
+    const SDL_FRect playerBox = player_.bounds();
+    for (const std::unique_ptr<Enemy>& enemy : enemies_)
+    {
+        const SDL_FRect enemyBox = enemy->bounds();
+        if (SDL_HasRectIntersectionFloat(&playerBox, &enemyBox))
+        {
+            player_.takeHit();
+            return;
+        }
     }
 }
 
@@ -267,10 +286,35 @@ void PlayScene::render(SDL_Renderer* renderer)
 
 void PlayScene::drawHud(SDL_Renderer* renderer) const
 {
-    drawCentredText(renderer, 12.0f,
-                    std::format("Oil {:3.0f}%    Lantern {}    Lamps {}/{}    Time {:.1f} s",
-                                player_.oil(), player_.lanternOpen() ? "OPEN" : "SHUT",
-                                litLampCount(), lamps_.size(), elapsedSeconds_),
-                    1.0f);
+    constexpr float kTextY = 14.0f;
+    constexpr float kBarY = 12.0f;
+    constexpr float kBarWidth = 180.0f;
+    constexpr float kBarHeight = 12.0f;
+
+    drawText(renderer, 24.0f, kTextY, "Oil", 1.0f);
+    drawBar(renderer, 56.0f, kBarY, kBarWidth, kBarHeight, player_.oil() / 100.0f, 214, 140, 50);
+
+    drawText(renderer, 260.0f, kTextY, "Clock", 1.0f);
+    drawBar(renderer, 308.0f, kBarY, kBarWidth, kBarHeight,
+            static_cast<float>(clockSecondsLeft_) / balance_.clockSeconds, 200, 195, 180);
+
+    // One square per heart: bright while it is still held, dark once lost.
+    drawText(renderer, 512.0f, kTextY, "Hearts", 1.0f);
+    for (int i = 0; i < balance_.startingHearts; ++i)
+    {
+        const SDL_FRect heart{ 568.0f + static_cast<float>(i) * 18.0f, kBarY, 12.0f, 12.0f };
+        if (i < player_.hearts())
+        {
+            fillRect(renderer, heart, 214, 64, 64);
+        }
+        else
+        {
+            fillRect(renderer, heart, 60, 30, 36);
+        }
+    }
+
+    drawText(renderer, 648.0f, kTextY,
+             std::format("Lamps {}/{}    Lantern {}", litLampCount(), lamps_.size(), player_.lanternOpen() ? "OPEN" : "SHUT"),
+             1.0f);
     drawCentredText(renderer, 700.0f, "WASD/arrows: move    E: light lamp    Space: lantern    Esc/P: pause", 1.0f);
 }

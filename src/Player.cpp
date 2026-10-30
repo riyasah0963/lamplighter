@@ -21,11 +21,14 @@ Player::Player(const Level& level, const InputHandler& input, const Balance& bal
     , level_(level)
     , input_(input)
     , balance_(balance)
+    , hearts_(balance.startingHearts)
 {
 }
 
 void Player::update(double dt)
 {
+    safeSecondsLeft_ = std::max(0.0, safeSecondsLeft_ - dt);
+
     // The open lantern burns oil; when the tank runs dry the light goes out.
     if (lanternOpen_)
     {
@@ -55,8 +58,24 @@ void Player::update(double dt)
     moveAlongAxis(level_, 0.0f, direction.y * distance);
 }
 
+void Player::takeHit()
+{
+    if (safeSecondsLeft_ > 0.0 || hearts_ == 0)
+    {
+        return;
+    }
+    --hearts_;
+    safeSecondsLeft_ = balance_.hitSafeSeconds;
+}
+
 void Player::render(SDL_Renderer* renderer, SDL_FPoint mapOrigin) const
 {
+    // Flicker while safe after a hit, so the player can see it happened (on and off 10 times a second).
+    if (safeSecondsLeft_ > 0.0 && static_cast<int>(safeSecondsLeft_ * 10.0) % 2 == 0)
+    {
+        return;
+    }
+
     const SDL_FRect screenRect{ mapOrigin.x + x_, mapOrigin.y + y_, width_, height_ };
     fillRect(renderer, screenRect, 235, 225, 200);  // placeholder until the lamplighter sprite
 }
