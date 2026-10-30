@@ -114,6 +114,10 @@ xcopy /E /I /Y /D /Q "$(SolutionDir)config" "$(OutDir)config"</Command>
     <ClCompile Include="src\GamePaths.cpp" />
     <ClCompile Include="src\InputHandler.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Creeper.cpp" />
+    <ClCompile Include="src\Enemy.cpp" />
+    <ClCompile Include="src\EnemyState.cpp" />
+    <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Lamp.cpp" />
     <ClCompile Include="src\LightingSystem.cpp" />
     <ClCompile Include="src\OilCan.cpp" />
@@ -136,6 +140,9 @@ xcopy /E /I /Y /D /Q "$(SolutionDir)config" "$(OutDir)config"</Command>
     <ClInclude Include="include\Level.h" />
     <ClInclude Include="include\LevelLoader.h" />
     <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\Creeper.h" />
+    <ClInclude Include="include\Enemy.h" />
+    <ClInclude Include="include\EnemyState.h" />
     <ClInclude Include="include\Balance.h" />
     <ClInclude Include="include\Command.h" />
     <ClInclude Include="include\Lamp.h" />

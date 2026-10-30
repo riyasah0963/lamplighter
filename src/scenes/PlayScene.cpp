@@ -4,6 +4,7 @@
 #include <format>
 #include <memory>
 
+#include "Creeper.h"
 #include "DrawHelpers.h"
 #include "GameConstants.h"
 #include "GamePaths.h"
@@ -37,6 +38,10 @@ PlayScene::PlayScene(SceneManager& scenes)
     {
         oilCans_.emplace_back(tile);
     }
+    for (const TilePos& tile : level_.objects().creeperSpawns)
+    {
+        enemies_.push_back(std::make_unique<Creeper>(level_, balance_, tile));
+    }
 }
 
 void PlayScene::handleEvent(const SDL_Event& event)
@@ -66,6 +71,12 @@ void PlayScene::update(double dt)
     player_.update(dt);
     collectOilCans();
     refillFromLitLamps(dt);
+
+    for (const std::unique_ptr<Enemy>& enemy : enemies_)
+    {
+        enemy->setSenses(sensesFor(*enemy));
+        enemy->update(dt);
+    }
 
     // Win: every lamp in the district is lit.
     if (litLampCount() == static_cast<int>(lamps_.size()))
@@ -117,15 +128,46 @@ void PlayScene::collectOilCans()
 void PlayScene::refillFromLitLamps(double dt)
 {
     // Standing in a lit lamp's pool of light tops up the lantern.
-    const float lampRadius = balance_.lampRadiusTiles * kTileSize;
+    if (litLampCovering(player_.centre()) != nullptr)
+    {
+        player_.addOil(balance_.lampRefillPerSecond * static_cast<float>(dt));
+    }
+}
+
+const Lamp* PlayScene::litLampCovering(SDL_FPoint point) const
+{
+    const float radius = balance_.lampRadiusTiles * kTileSize * balance_.lightCoreFraction;
     for (const Lamp& lamp : lamps_)
     {
-        if (lamp.isLit() && distanceBetween(player_.centre(), lamp.centre()) <= lampRadius)
+        if (lamp.isLit() && distanceBetween(point, lamp.centre()) <= radius)
         {
-            player_.addOil(balance_.lampRefillPerSecond * static_cast<float>(dt));
-            return;  // one lamp's worth at a time, even where two pools overlap
+            return &lamp;
         }
     }
+    return nullptr;
+}
+
+EnemySenses PlayScene::sensesFor(const Enemy& enemy) const
+{
+    EnemySenses senses;
+    senses.playerCentre = player_.centre();
+
+    // The lantern dilemma: open, it repels enemies but they notice the player from further away.
+    const float sightTiles = player_.lanternOpen() ? balance_.creeperSightTiles : balance_.creeperSightTilesLanternShut;
+    senses.sightRange = sightTiles * kTileSize;
+
+    const SDL_FPoint position = enemy.centre();
+    if (distanceBetween(position, player_.centre()) <= player_.lightRadius() * balance_.lightCoreFraction)
+    {
+        senses.inLight = true;
+        senses.lightCentre = player_.centre();
+    }
+    else if (const Lamp* lamp = litLampCovering(position))
+    {
+        senses.inLight = true;
+        senses.lightCentre = lamp->centre();
+    }
+    return senses;
 }
 
 int PlayScene::litLampCount() const
@@ -189,11 +231,12 @@ void PlayScene::render(SDL_Renderer* renderer)
         lamp.render(renderer, origin);
     }
 
-    // Enemy start positions, still static until the enemy step.
-    for (const TilePos& creeper : level_.objects().creeperSpawns)
+    for (const std::unique_ptr<Enemy>& enemy : enemies_)
     {
-        fillRect(renderer, tileRect(creeper, 6.0f), 150, 120, 220);
+        enemy->render(renderer, origin);
     }
+
+    // Moth start positions, still static until the Moth is added.
     for (const TilePos& moth : level_.objects().mothSpawns)
     {
         fillRect(renderer, tileRect(moth, 10.0f), 225, 205, 255);

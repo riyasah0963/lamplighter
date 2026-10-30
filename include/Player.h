@@ -28,9 +28,6 @@ public:
     float lightRadius() const;
 
 private:
-    // Moves along one axis only (one of dx, dy is 0), then pushes the player back out of any wall it entered.
-    void moveAlongAxis(float dx, float dy);
-
     const Level& level_;
     const InputHandler& input_;
     const Balance& balance_;

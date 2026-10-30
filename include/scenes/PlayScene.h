@@ -2,10 +2,12 @@
 
 #include <SDL3/SDL.h>
 
+#include <memory>
 #include <vector>
 
 #include "Balance.h"
 #include "Command.h"
+#include "Enemy.h"
 #include "InputHandler.h"
 #include "Lamp.h"
 #include "Level.h"
@@ -15,7 +17,7 @@
 #include "Scene.h"
 
 // The district being played: the player walks the dark streets with a lantern, lights the
-// lamps and picks up oil. Lighting every lamp wins the district. Enemies arrive in the next step.
+// lamps and picks up oil while Creepers hunt them. Lighting every lamp wins the district.
 class PlayScene : public Scene, public GameActions
 {
 public:
@@ -40,6 +42,13 @@ private:
     void collectOilCans();
     void refillFromLitLamps(double dt);
     int litLampCount() const;
+
+    // The lit lamp whose pool of light covers this map point, or nullptr if none does.
+    const Lamp* litLampCovering(SDL_FPoint point) const;
+
+    // What this enemy can sense this update.
+    EnemySenses sensesFor(const Enemy& enemy) const;
+
     void drawHud(SDL_Renderer* renderer) const;
 
     // Order matters: members are created top to bottom, and the player keeps references to the
@@ -50,6 +59,7 @@ private:
     Player player_;
     std::vector<Lamp> lamps_;
     std::vector<OilCan> oilCans_;
+    std::vector<std::unique_ptr<Enemy>> enemies_;
     LightingSystem lighting_;
     double elapsedSeconds_ = 0.0;  // stops increasing while Pause is on top
 };
