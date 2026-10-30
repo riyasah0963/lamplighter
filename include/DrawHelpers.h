@@ -4,6 +4,7 @@
 
 #include <SDL3/SDL.h>
 
+#include <algorithm>
 #include <string>
 
 #include "GameConstants.h"
@@ -25,18 +26,29 @@ inline void fillRect(SDL_Renderer* renderer, const SDL_FRect& rect, Uint8 r, Uin
     checkSdl(SDL_RenderFillRect(renderer, &rect), "SDL_RenderFillRect");
 }
 
-// Draws one line of text centred across the screen, in SDL3's built-in 8x8 debug font enlarged by `scale`.
-// Temporary: the BitmapFont class from the proposal replaces this.
-inline void drawCentredText(SDL_Renderer* renderer, float y, const std::string& text, float scale)
+// A horizontal bar for the HUD: a dark track with `fraction` (0 to 1) of it filled in the given colour.
+inline void drawBar(SDL_Renderer* renderer, float x, float y, float width, float height, float fraction, Uint8 r, Uint8 g, Uint8 b)
 {
-    const float charSize = static_cast<float>(SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE);
-    const float textWidth = static_cast<float>(text.size()) * charSize * scale;
-    const float x = (static_cast<float>(kLogicalWidth) - textWidth) / 2.0f;
+    fillRect(renderer, SDL_FRect{ x, y, width, height }, 34, 32, 42);
+    fillRect(renderer, SDL_FRect{ x, y, width * std::clamp(fraction, 0.0f, 1.0f), height }, r, g, b);
+}
 
+// Draws one line of text in SDL3's built-in 8x8 debug font, enlarged by `scale`.
+// Temporary: the BitmapFont class from the proposal replaces this.
+inline void drawText(SDL_Renderer* renderer, float x, float y, const std::string& text, float scale)
+{
     checkSdl(SDL_SetRenderDrawColor(renderer, 235, 225, 200, SDL_ALPHA_OPAQUE), "SDL_SetRenderDrawColor");  // warm lamplight white
 
     // The render scale enlarges everything drawn, positions included, so the position is divided by it.
     checkSdl(SDL_SetRenderScale(renderer, scale, scale), "SDL_SetRenderScale");
     checkSdl(SDL_RenderDebugText(renderer, x / scale, y / scale, text.c_str()), "SDL_RenderDebugText");
     checkSdl(SDL_SetRenderScale(renderer, 1.0f, 1.0f), "SDL_SetRenderScale");
+}
+
+// The same, centred across the screen.
+inline void drawCentredText(SDL_Renderer* renderer, float y, const std::string& text, float scale)
+{
+    const float charSize = static_cast<float>(SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE);
+    const float textWidth = static_cast<float>(text.size()) * charSize * scale;
+    drawText(renderer, (static_cast<float>(kLogicalWidth) - textWidth) / 2.0f, y, text, scale);
 }

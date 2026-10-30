@@ -25,4 +25,8 @@ struct Balance
     float creeperSpeedTilesPerSecond = 3.0f;
     float creeperSightTiles = 7.0f;            // how far a Creeper notices the player with the lantern open
     float creeperSightTilesLanternShut = 3.0f; // a shut lantern hides the player, so it must get much closer
+
+    float clockSeconds = 120.0f;       // length of the candle-clock for a district
+    int startingHearts = 3;
+    float hitSafeSeconds = 1.5f;       // how long the player cannot be hit again after losing a heart
 };

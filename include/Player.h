@@ -27,6 +27,11 @@ public:
     // Radius of the lantern's light in map pixels: shrinks as the oil drains, 0 when shut.
     float lightRadius() const;
 
+    int hearts() const { return hearts_; }
+
+    // Costs one heart, unless the player was hit moments ago and is still safe.
+    void takeHit();
+
 private:
     const Level& level_;
     const InputHandler& input_;
@@ -34,4 +39,6 @@ private:
 
     bool lanternOpen_ = true;
     float oil_ = 100.0f;
+    int hearts_;
+    double safeSecondsLeft_ = 0.0;  // above 0 just after a hit, while the player cannot be hit again
 };

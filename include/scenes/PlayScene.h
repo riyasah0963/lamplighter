@@ -41,6 +41,7 @@ private:
 
     void collectOilCans();
     void refillFromLitLamps(double dt);
+    void checkEnemyHits();
     int litLampCount() const;
 
     // The lit lamp whose pool of light covers this map point, or nullptr if none does.
@@ -61,5 +62,6 @@ private:
     std::vector<OilCan> oilCans_;
     std::vector<std::unique_ptr<Enemy>> enemies_;
     LightingSystem lighting_;
-    double elapsedSeconds_ = 0.0;  // stops increasing while Pause is on top
+    double clockSecondsLeft_;      // the candle-clock; the district is lost when it reaches 0
+    double elapsedSeconds_ = 0.0;  // the run's time; stops increasing while Pause is on top
 };
