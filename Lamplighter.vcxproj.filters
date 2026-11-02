@@ -51,6 +51,9 @@
     <ClCompile Include="src\Level.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\ConfigLoader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\LevelLoader.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -93,6 +96,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Level.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ConfigLoader.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\LevelLoader.h">

@@ -1,0 +1,29 @@
+# Lamplighter balance values. Change a number, save, and run the game again.
+# One "name = value" per line. Comments need their own line.
+# Oil amounts are percentages of a full tank (0 to 100).
+
+# Player
+playerSpeedTilesPerSecond = 4
+
+# Oil
+oilFullTankSeconds = 45
+oilCanRefill = 50
+lampRefillPerSecond = 30
+
+# Light
+lanternMaxRadiusTiles = 5.5
+lanternMinRadiusTiles = 2
+lampRadiusTiles = 4.5
+lampReachTiles = 1.5
+moonlight = 45
+lightCoreFraction = 0.6
+
+# Creepers
+creeperSpeedTilesPerSecond = 3
+creeperSightTiles = 7
+creeperSightTilesLanternShut = 3
+
+# Rules of a district
+clockSeconds = 120
+startingHearts = 3
+hitSafeSeconds = 1.5

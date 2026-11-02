@@ -4,6 +4,7 @@
 #include <format>
 #include <memory>
 
+#include "ConfigLoader.h"
 #include "Creeper.h"
 #include "DrawHelpers.h"
 #include "GameConstants.h"
@@ -26,6 +27,7 @@ namespace
 
 PlayScene::PlayScene(SceneManager& scenes)
     : Scene(scenes)
+    , balance_(ConfigLoader::load(gamePath("config/balance.txt")))
     , level_(LevelLoader::load(gamePath("levels/district1.txt")))
     , player_(level_, input_, balance_, level_.objects().playerStart)
     , lighting_(balance_.moonlight)

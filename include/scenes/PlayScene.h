@@ -21,7 +21,8 @@
 class PlayScene : public Scene, public GameActions
 {
 public:
-    // Loads district 1. Throws LevelLoadError if the level file is missing or broken.
+    // Loads district 1 and the balance values. Throws LevelLoadError or ConfigLoadError if a
+    // file is missing or broken.
     explicit PlayScene(SceneManager& scenes);
 
     void handleEvent(const SDL_Event& event) override;
