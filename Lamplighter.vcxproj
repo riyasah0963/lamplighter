@@ -110,6 +110,7 @@ xcopy /E /I /Y /D /Q "$(SolutionDir)config" "$(OutDir)config"</Command>
   </ItemDefinitionGroup>
 
   <ItemGroup>
+    <ClCompile Include="src\BestTimes.cpp" />
     <ClCompile Include="src\ConfigLoader.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GamePaths.cpp" />
@@ -134,6 +135,7 @@ xcopy /E /I /Y /D /Q "$(SolutionDir)config" "$(OutDir)config"</Command>
     <ClCompile Include="src\scenes\ResultScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\BestTimes.h" />
     <ClInclude Include="include\ConfigLoader.h" />
     <ClInclude Include="include\DrawHelpers.h" />
     <ClInclude Include="include\Entity.h" />

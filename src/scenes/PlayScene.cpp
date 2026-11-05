@@ -27,10 +27,11 @@ namespace
     }
 }
 
-PlayScene::PlayScene(SceneManager& scenes)
+PlayScene::PlayScene(SceneManager& scenes, int district)
     : Scene(scenes)
+    , district_(district)
     , balance_(ConfigLoader::load(gamePath("config/balance.txt")))
-    , level_(LevelLoader::load(gamePath("levels/district1.txt")))
+    , level_(LevelLoader::load(gamePath(std::format("levels/district{}.txt", district))))
     , player_(level_, input_, balance_, level_.objects().playerStart)
     , lighting_(balance_.moonlight)
     , clockSecondsLeft_(balance_.clockSeconds)
@@ -53,11 +54,11 @@ PlayScene::PlayScene(SceneManager& scenes)
     }
 }
 
-std::unique_ptr<Scene> PlayScene::start(SceneManager& scenes)
+std::unique_ptr<Scene> PlayScene::start(SceneManager& scenes, int district)
 {
     try
     {
-        return std::make_unique<PlayScene>(scenes);
+        return std::make_unique<PlayScene>(scenes, district);
     }
     catch (const LevelLoadError& error)
     {
@@ -100,11 +101,11 @@ void PlayScene::update(double dt)
     // Win: every lamp in the district is lit. Lose: out of hearts, or the candle-clock burned out.
     if (litLampCount() == static_cast<int>(lamps_.size()))
     {
-        scenes().requestSwitchTo(std::make_unique<ResultScene>(scenes(), true, elapsedSeconds_));
+        scenes().requestSwitchTo(std::make_unique<ResultScene>(scenes(), district_, true, elapsedSeconds_));
     }
     else if (player_.hearts() == 0 || clockSecondsLeft_ <= 0.0)
     {
-        scenes().requestSwitchTo(std::make_unique<ResultScene>(scenes(), false, elapsedSeconds_));
+        scenes().requestSwitchTo(std::make_unique<ResultScene>(scenes(), district_, false, elapsedSeconds_));
     }
 }
 
@@ -347,7 +348,7 @@ void PlayScene::drawHud(SDL_Renderer* renderer) const
     }
 
     drawText(renderer, 648.0f, kTextY,
-             std::format("Lamps {}/{}    Lantern {}", litLampCount(), lamps_.size(), player_.lanternOpen() ? "OPEN" : "SHUT"),
+             std::format("District {}    Lamps {}/{}    Lantern {}", district_, litLampCount(), lamps_.size(), player_.lanternOpen() ? "OPEN" : "SHUT"),
              1.0f);
     drawCentredText(renderer, 700.0f, "WASD/arrows: move    E: light lamp    Space: lantern    Esc/P: pause", 1.0f);
 }

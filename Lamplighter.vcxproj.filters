@@ -54,6 +54,9 @@
     <ClCompile Include="src\Level.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\BestTimes.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\ConfigLoader.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -102,6 +105,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Level.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BestTimes.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\ConfigLoader.h">

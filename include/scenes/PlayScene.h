@@ -21,13 +21,13 @@
 class PlayScene : public Scene, public GameActions
 {
 public:
-    // Loads district 1 and the balance values. Throws LevelLoadError or ConfigLoadError if a
-    // file is missing or broken.
-    explicit PlayScene(SceneManager& scenes);
+    // Loads the district (1 to kDistrictCount) and the balance values. Throws LevelLoadError or
+    // ConfigLoadError if a file is missing or broken.
+    PlayScene(SceneManager& scenes, int district);
 
     // Creates a PlayScene, or an ErrorScene explaining the problem if a level or config file is
     // missing or broken. Menu and Result use this instead of creating a PlayScene directly.
-    static std::unique_ptr<Scene> start(SceneManager& scenes);
+    static std::unique_ptr<Scene> start(SceneManager& scenes, int district);
 
     void handleEvent(const SDL_Event& event) override;
     void update(double dt) override;
@@ -59,6 +59,7 @@ private:
 
     // Order matters: members are created top to bottom, and the player keeps references to the
     // balance values, level and input handler, so those must be declared (and created) first.
+    int district_;
     Balance balance_;
     Level level_;
     InputHandler input_;
