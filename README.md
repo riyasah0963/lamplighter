@@ -89,6 +89,7 @@ Also used: **RAII** wrappers (`std::unique_ptr` with SDL deleters in `SdlHandles
 - **Creeper:** patrols until the player is in sight, chases, and flees from light. A hit counts only in darkness.
 - **Moth:** `fleesLight()` is false and `snuffsLantern()` is true, so the same states make it chase an open lantern. `Player::snuffLantern` shuts the lantern and spills oil, and `Enemy::startFleeing` sends the Moth away.
 - **Hearts, clock, win and lose:** `Player::takeHit` costs a heart, then gives 1.5 s of safety. `PlayScene::update` counts down the clock and switches to `ResultScene` on a win or a loss.
+- **Changes from playtest 1:** `PlayScene::drawHud` shows a coloured LANTERN OPEN or SHUT badge, a larger "Lamps left" count and a flashing LOW OIL warning below a quarter of a tank. `PlayScene::render` draws over the lighting a ring round each unlit lamp, an "E: light lamp" prompt over the lamp `lampInReach` finds, and an outline round the player while the lantern is shut. The clock went from 120 to 150 s and a tank of oil from 45 to 55 s in `config/balance.txt` (Issues #1 to #3).
 - **Data-driven design:** `LevelLoader` reads districts from text files (one character per tile). `ConfigLoader` reads `name = value` balance settings over the defaults in `Balance`. `BestTimes` saves and loads the fastest wins.
 
 ## UML design diagram
@@ -170,6 +171,10 @@ Shapes are placeholders for sprites (see the deviations table).
 | **Lantern dilemma:** the Creepers (purple) stay at the edge of the light, but a Moth (pale) flies straight in | **A moment later:** the Moth has snuffed the lantern (SHUT, oil down 20%) and flutters off, and the Creepers can now close in |
 | ![District 3, the densest map](docs/screens/district3.png) | ![Error screen for a broken config file](docs/screens/error-screen.png) |
 | **District 3:** 9 lamps, 4 Creepers, 2 Moths | **Error screen:** a broken `balance.txt` is reported with its line instead of crashing |
+
+**After playtest 1:** the changes made for Issues #1 and #2. Unlit lamps have gold rings, an "E: light lamp" prompt shows over the lamp in reach, "Lamps left" is larger, the lantern state is a coloured badge, the player is outlined while the lantern is shut, and LOW OIL flashes. This shot used a test config with a 6-second tank, so the oil is empty.
+
+![After playtest 1: lamp rings, E prompt, lamps-left count, lantern badge and LOW OIL warning](docs/screens/after-playtest.png)
 
 ## Exception handling and test cases
 
