@@ -6,7 +6,7 @@
 playerSpeedTilesPerSecond = 4
 
 # Oil
-oilFullTankSeconds = 45
+oilFullTankSeconds = 55
 oilCanRefill = 50
 lampRefillPerSecond = 30
 
@@ -30,6 +30,6 @@ mothOilStolen = 20
 mothFleeSeconds = 2
 
 # Rules of a district
-clockSeconds = 120
+clockSeconds = 150
 startingHearts = 3
 hitSafeSeconds = 1.5

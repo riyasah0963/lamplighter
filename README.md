@@ -45,7 +45,7 @@ The Week 2 proposal: [docs/proposal/PROPOSAL.md](docs/proposal/PROPOSAL.md) (sub
 
 You are Emberfall's last lamplighter. Each district starts dark, with unlit street lamps, a few oil cans, Creepers and Moths.
 
-- **Goal:** light every lamp (E) before the candle-clock runs out (120 seconds).
+- **Goal:** light every lamp (E) before the candle-clock runs out (150 seconds, raised from 120 after playtesting).
 - **Lantern:** open, it lights the way and Creepers run from it, but it burns oil, its light shrinks as the oil drains, and Moths are drawn to it. Shut, it saves oil and hides you, but you are in the dark.
 - **Oil:** refill by standing in a lit lamp's light or picking up an oil can.
 - **Creepers** patrol, chase you through the dark and flee from light. One touching you in the dark costs a heart.

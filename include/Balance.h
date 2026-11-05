@@ -7,7 +7,7 @@ struct Balance
 {
     float playerSpeedTilesPerSecond = 4.0f;
 
-    float oilFullTankSeconds = 45.0f;      // how long a full tank lasts with the lantern open
+    float oilFullTankSeconds = 55.0f;      // how long a full tank lasts with the lantern open
     float oilCanRefill = 50.0f;            // oil gained from picking up a can
     float lampRefillPerSecond = 30.0f;     // oil gained per second while standing in a lit lamp's light
 
@@ -31,7 +31,7 @@ struct Balance
     float mothOilStolen = 20.0f;       // oil spilled when a Moth snuffs the lantern
     float mothFleeSeconds = 2.0f;      // how long a Moth flutters off after snuffing the lantern
 
-    float clockSeconds = 120.0f;       // length of the candle-clock for a district
+    float clockSeconds = 150.0f;       // length of the candle-clock for a district
     int startingHearts = 3;
     float hitSafeSeconds = 1.5f;       // how long the player cannot be hit again after losing a heart
 };
