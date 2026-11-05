@@ -19,7 +19,7 @@ void ResultScene::handleEvent(const SDL_Event& event)
 {
     if (isKeyPress(event, SDLK_R))
     {
-        scenes().requestSwitchTo(std::make_unique<PlayScene>(scenes()));  // retry, as the proposal's fail state describes
+        scenes().requestSwitchTo(PlayScene::start(scenes()));  // retry, as the proposal's fail state describes
     }
     else if (isKeyPress(event, SDLK_RETURN) || isKeyPress(event, SDLK_KP_ENTER))
     {

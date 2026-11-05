@@ -25,6 +25,10 @@ public:
     // file is missing or broken.
     explicit PlayScene(SceneManager& scenes);
 
+    // Creates a PlayScene, or an ErrorScene explaining the problem if a level or config file is
+    // missing or broken. Menu and Result use this instead of creating a PlayScene directly.
+    static std::unique_ptr<Scene> start(SceneManager& scenes);
+
     void handleEvent(const SDL_Event& event) override;
     void update(double dt) override;
     void render(SDL_Renderer* renderer) override;

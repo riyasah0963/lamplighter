@@ -63,6 +63,9 @@
     <ClCompile Include="src\SceneManager.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\scenes\ErrorScene.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
     <ClCompile Include="src\scenes\MenuScene.cpp">
       <Filter>src\scenes</Filter>
     </ClCompile>
@@ -139,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="include\SdlHandles.h">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\scenes\ErrorScene.h">
+      <Filter>include\scenes</Filter>
     </ClInclude>
     <ClInclude Include="include\scenes\MenuScene.h">
       <Filter>include\scenes</Filter>

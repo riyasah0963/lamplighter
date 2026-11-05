@@ -1,7 +1,5 @@
 #include "scenes/MenuScene.h"
 
-#include <memory>
-
 #include "DrawHelpers.h"
 #include "SceneManager.h"
 #include "scenes/PlayScene.h"
@@ -10,7 +8,7 @@ void MenuScene::handleEvent(const SDL_Event& event)
 {
     if (isKeyPress(event, SDLK_RETURN) || isKeyPress(event, SDLK_KP_ENTER))
     {
-        scenes().requestSwitchTo(std::make_unique<PlayScene>(scenes()));
+        scenes().requestSwitchTo(PlayScene::start(scenes()));
     }
     else if (isKeyPress(event, SDLK_ESCAPE))
     {

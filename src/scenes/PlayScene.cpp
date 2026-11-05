@@ -11,6 +11,7 @@
 #include "GamePaths.h"
 #include "LevelLoader.h"
 #include "SceneManager.h"
+#include "scenes/ErrorScene.h"
 #include "scenes/PauseScene.h"
 #include "scenes/ResultScene.h"
 
@@ -44,6 +45,22 @@ PlayScene::PlayScene(SceneManager& scenes)
     for (const TilePos& tile : level_.objects().creeperSpawns)
     {
         enemies_.push_back(std::make_unique<Creeper>(level_, balance_, tile));
+    }
+}
+
+std::unique_ptr<Scene> PlayScene::start(SceneManager& scenes)
+{
+    try
+    {
+        return std::make_unique<PlayScene>(scenes);
+    }
+    catch (const LevelLoadError& error)
+    {
+        return std::make_unique<ErrorScene>(scenes, error.what());
+    }
+    catch (const ConfigLoadError& error)
+    {
+        return std::make_unique<ErrorScene>(scenes, error.what());
     }
 }
 
