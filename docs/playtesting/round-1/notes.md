@@ -83,6 +83,6 @@ Run times were not recorded.
 
 Each finding is a GitHub Issue, closed by the commit that fixes it.
 
-1. **The lantern's state and low oil are hard to see.** T3 could not tell whether the lantern was open or shut; T1 was unsure how to manage oil. ISSUE_1
-2. **It is not clear when a lamp is close enough to light, or which lamps are left.** T1 asked for this; T2 asked for an indicator of lamps left. ISSUE_2
-3. **The clock and oil are tight for new players.** Average ratings: oil fair 3.0, clock long enough 3.0, Creepers fair 3.0 (T3 gave 2 for each); 2 of 9 runs ended with the clock running out; T3 asked for more time. ISSUE_3
+1. **The lantern's state and low oil are hard to see.** T3 could not tell whether the lantern was open or shut; T1 was unsure how to manage oil. [Issue #1](https://github.com/riyasah0963/lamplighter/issues/1)
+2. **It is not clear when a lamp is close enough to light, or which lamps are left.** T1 asked for this; T2 asked for an indicator of lamps left. [Issue #2](https://github.com/riyasah0963/lamplighter/issues/2)
+3. **The clock and oil are tight for new players.** Average ratings: oil fair 3.0, clock long enough 3.0, Creepers fair 3.0 (T3 gave 2 for each); 2 of 9 runs ended with the clock running out; T3 asked for more time. [Issue #3](https://github.com/riyasah0963/lamplighter/issues/3)
