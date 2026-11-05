@@ -314,6 +314,15 @@ void PlayScene::render(SDL_Renderer* renderer)
     }
     lighting_.render(renderer, lights);
 
+    // With the lantern shut the player is in the dark, so outline them in a cold blue to show
+    // where they are and that the lantern is shut (playtest Issue #1).
+    if (!player_.lanternOpen())
+    {
+        const SDL_FRect box = player_.bounds();
+        drawOutline(renderer, SDL_FRect{ origin.x + box.x - 3.0f, origin.y + box.y - 3.0f, box.w + 6.0f, box.h + 6.0f },
+                    140, 155, 220);
+    }
+
     // Drawn after the lighting so it is always readable.
     drawHud(renderer);
 }
@@ -325,8 +334,22 @@ void PlayScene::drawHud(SDL_Renderer* renderer) const
     constexpr float kBarWidth = 180.0f;
     constexpr float kBarHeight = 12.0f;
 
+    // Below a quarter of a tank the oil bar turns red and LOW OIL flashes (playtest Issue #1).
+    constexpr float kLowOil = 25.0f;
+    const bool lowOil = player_.oil() < kLowOil;
     drawText(renderer, 24.0f, kTextY, "Oil", 1.0f);
-    drawBar(renderer, 56.0f, kBarY, kBarWidth, kBarHeight, player_.oil() / 100.0f, 214, 140, 50);
+    if (lowOil)
+    {
+        drawBar(renderer, 56.0f, kBarY, kBarWidth, kBarHeight, player_.oil() / 100.0f, 220, 60, 50);
+        if (static_cast<int>(elapsedSeconds_ * 3.0) % 2 == 0)  // on and off three times a second
+        {
+            drawText(renderer, 56.0f, 28.0f, "LOW OIL", 1.0f);
+        }
+    }
+    else
+    {
+        drawBar(renderer, 56.0f, kBarY, kBarWidth, kBarHeight, player_.oil() / 100.0f, 214, 140, 50);
+    }
 
     drawText(renderer, 260.0f, kTextY, "Clock", 1.0f);
     drawBar(renderer, 308.0f, kBarY, kBarWidth, kBarHeight,
@@ -348,7 +371,19 @@ void PlayScene::drawHud(SDL_Renderer* renderer) const
     }
 
     drawText(renderer, 648.0f, kTextY,
-             std::format("District {}    Lamps {}/{}    Lantern {}", district_, litLampCount(), lamps_.size(), player_.lanternOpen() ? "OPEN" : "SHUT"),
-             1.0f);
+             std::format("District {}    Lamps {}/{}", district_, litLampCount(), lamps_.size()), 1.0f);
+
+    // The lantern's state as a coloured badge: amber when open, slate blue when shut (playtest Issue #1).
+    const bool open = player_.lanternOpen();
+    const SDL_FRect badge{ 1000.0f, 7.0f, 160.0f, 22.0f };
+    if (open)
+    {
+        fillRect(renderer, badge, 150, 95, 20);
+    }
+    else
+    {
+        fillRect(renderer, badge, 45, 50, 85);
+    }
+    drawText(renderer, badge.x + 8.0f, badge.y + 5.0f, open ? "LANTERN OPEN" : "LANTERN SHUT", 1.5f);
     drawCentredText(renderer, 700.0f, "WASD/arrows: move    E: light lamp    Space: lantern    Esc/P: pause", 1.0f);
 }

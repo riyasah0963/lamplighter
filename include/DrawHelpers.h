@@ -26,6 +26,13 @@ inline void fillRect(SDL_Renderer* renderer, const SDL_FRect& rect, Uint8 r, Uin
     checkSdl(SDL_RenderFillRect(renderer, &rect), "SDL_RenderFillRect");
 }
 
+// Draws the outline of a rectangle, one pixel thick.
+inline void drawOutline(SDL_Renderer* renderer, const SDL_FRect& rect, Uint8 r, Uint8 g, Uint8 b)
+{
+    checkSdl(SDL_SetRenderDrawColor(renderer, r, g, b, SDL_ALPHA_OPAQUE), "SDL_SetRenderDrawColor");
+    checkSdl(SDL_RenderRect(renderer, &rect), "SDL_RenderRect");
+}
+
 // A horizontal bar for the HUD: a dark track with `fraction` (0 to 1) of it filled in the given colour.
 inline void drawBar(SDL_Renderer* renderer, float x, float y, float width, float height, float fraction, Uint8 r, Uint8 g, Uint8 b)
 {
