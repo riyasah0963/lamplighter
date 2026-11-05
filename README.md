@@ -31,13 +31,13 @@ The Week 2 proposal: [docs/proposal/PROPOSAL.md](docs/proposal/PROPOSAL.md) (sub
 
 | Change from the proposal | Why |
 | --- | --- |
-| No sound (irrKlang not added) | **[You check the reason]** Cut to finish the core game, districts and playtesting in time. |
-| Coloured shapes instead of sprites and animation | **[You check the reason]** Time, and SDL3_image approval was still pending. The renderer draws every entity in its own `render()`, so sprites can replace the shapes without changing the gameplay code. |
+| No sound (irrKlang not added) | Cut to finish the core game, districts and playtesting in time. |
+| Coloured shapes instead of sprites and animation | Time, and SDL3_image approval was still pending. The renderer draws every entity in its own `render()`, so sprites can replace the shapes without changing the gameplay code. |
 | SDL3's built-in debug font instead of my own bitmap-font class | Part of SDL3, so no extra library; it was enough for the HUD and menus. |
 | No scrolling camera | Every district is 40 x 22 tiles, which fits the 1280 x 720 screen. |
 | Enemy routes are not loaded from files | Creepers patrol back and forth from where the level file places them. Levels and balance values are still loaded from text files. |
 | Event Queue and Object Pool patterns not used | The game has at most 6 enemies and no particles, so direct calls were simpler and pooling had nothing to gain. |
-| One playtest round instead of two | **[You write the reason and the date]** |
+| One playtest round instead of two | Held once, online on 5 Nov, instead of in the 29 Oct lab and again on 2 Nov, because development fell behind. There was no time for a second round before the deadline. |
 | Added: a shut lantern also hides the player from Creepers (they notice it from 3 tiles instead of 7) | It makes the lantern dilemma a real choice: open keeps Creepers away but is seen from far off. |
 | Added: a Moth snuffs the lantern and spills oil | The proposal said a Moth "seeks an open lantern" but not what happens when it arrives. |
 
@@ -63,7 +63,7 @@ Both are committed in `external/` with their headers, libs and DLLs, so the proj
 
 ## Use of AI and AI Development Log
 
-**[You check this summary]** I used Claude Opus 5.5 in VS Code (Claude Code) as a coding assistant and Claude on claude.ai for planning. Every use is in [docs/AI_LOG.md](docs/AI_LOG.md) with my prompt, what it produced, how it was checked and which commits it wrote. I typed the `Level`, `LevelLoader` and `ConfigLoader` code myself from step-by-step explanations, and designed the District 1 map (the building positions were suggested by Claude). Most of the remaining code was written by Claude to my plans and choices; I reviewed it and ran every build.
+I used Claude Opus 5.5 in VS Code (Claude Code) as a coding assistant and Claude on claude.ai for planning. Every use is in [docs/AI_LOG.md](docs/AI_LOG.md) with my prompt, what it produced, how it was checked and which commits it wrote. I typed the `Level`, `LevelLoader` and `ConfigLoader` code myself from step-by-step explanations, and designed the District 1 map (the building positions were suggested by Claude). Most of the remaining code was written by Claude to my plans and choices; I reviewed it and ran and tested each milestone build.
 
 ## Game programming patterns
 
@@ -245,7 +245,9 @@ Evidence is in [docs/playtesting](docs/playtesting).
 
 ## Appendix: Generative AI declaration
 
-**[You write this]** Use your own words to state:
-- which AI tools you used and for what
-- that every use is logged in `docs/AI_LOG.md`
-- what you did yourself
+I used generative AI during this coursework. All uses are documented in [docs/AI_LOG.md](docs/AI_LOG.md), including the prompts, outputs, how they were checked, and the associated commits.
+
+- **Claude (claude.ai, Claude Opus 5.5):** Used to generate the initial game idea and structure the one-page proposal, which I subsequently reviewed and reworded.
+- **Claude in VS Code (Claude Code, Claude Opus 5.5, paid plan):** Used to plan milestones; generate most of the C++ code based on my plans and design decisions; develop Districts 2 and 3; check builds and run tests; convert playtesting findings into GitHub Issues and implement the fixes; draft technical sections of the README, reflection, evaluation, and this declaration; and capture sample screenshots. I reviewed and edited the generated documentation and checked the implementation through building and testing.
+
+**My own work:** I made the main game design decisions, selected the gameplay mechanics, and designed the District 1 map (the building positions were suggested by Claude). I typed the `Level`, `LevelLoader`, and `ConfigLoader` code myself from Claude's step-by-step explanations. I also ran and tested each milestone build, conducted the playtesting session, and reviewed and edited all submitted materials. I have worked to ensure that I understand the implementation and can explain the code and design decisions.
