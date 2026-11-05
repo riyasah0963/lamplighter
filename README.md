@@ -160,7 +160,16 @@ classDiagram
 
 ## Sample screens
 
-**[You add 3–4 screenshots]** Suggested shots: the menu with best times, a district mid-run with lamps lit and the lantern's glow, a Moth approaching, and the error screen. Save them in `docs/screens/` and link them here like this: `![Menu](docs/screens/menu.png)`.
+Shapes are placeholders for sprites (see the deviations table).
+
+| | |
+| --- | --- |
+| ![Menu with district select and best times](docs/screens/menu.png) | ![District 1: a lamp just lit, the open lantern lighting the way](docs/screens/lamp-lit.png) |
+| **Menu:** district select and best times | **District 1:** a lamp lit (top left) and the open lantern |
+| ![A Moth flying into the lantern's light while two Creepers wait at its edge](docs/screens/moth-approaching.png) | ![The Moth has snuffed the lantern: it is shut, oil has dropped by 20%](docs/screens/lantern-snuffed.png) |
+| **Lantern dilemma:** the Creepers (purple) stay at the edge of the light, but a Moth (pale) flies straight in | **A moment later:** the Moth has snuffed the lantern (SHUT, oil down 20%) and flutters off, and the Creepers can now close in |
+| ![District 3, the densest map](docs/screens/district3.png) | ![Error screen for a broken config file](docs/screens/error-screen.png) |
+| **District 3:** 9 lamps, 4 Creepers, 2 Moths | **Error screen:** a broken `balance.txt` is reported with its line instead of crashing |
 
 ## Exception handling and test cases
 
@@ -183,7 +192,7 @@ classDiagram
 | 6 | No `L` | "needs at least one lamp" | Pass | Claude, 5 Nov |
 | 7 | Unknown character `x`, Windows line endings, blank last line | Map loads; `x` is floor | Pass | Claude, 5 Nov |
 | 8 | `clockSeconds = 20` | Run ends after 20 s | Pass | Me, 2 Nov |
-| 9 | `clockSeconds = fast` | Error screen names line 27 | Pass | Me, 2 Nov; Claude, 5 Nov (error screen) |
+| 9 | `clockSeconds = fast` | Error names the line (27 on 2 Nov; 33 after the Moth settings were added) | Pass | Me, 2 Nov (message box); Claude, 5 Nov (error screen) |
 | 10 | `clockSecond = 120` (misspelt) | "unknown setting 'clockSecond'" | Pass | Me, 2 Nov |
 | 11 | Config values `12abc`, empty, `1e999`, `nan`, `inf` | "is not a number" | Pass | Claude, 2 Nov |
 | 12 | Config values `0`, `-5`, `moonlight = 300`, `startingHearts = 0` | "is not allowed for ..." | Pass | Claude, 2 Nov |
