@@ -145,7 +145,14 @@ void PlayScene::toggleLantern()
 
 void PlayScene::lightNearbyLamp()
 {
-    // Light the closest unlit lamp within reach, if there is one.
+    if (Lamp* lamp = lampInReach())
+    {
+        lamp->light();
+    }
+}
+
+Lamp* PlayScene::lampInReach()
+{
     const float reach = balance_.lampReachTiles * kTileSize;
     Lamp* closest = nullptr;
     float closestDistance = reach;
@@ -158,10 +165,7 @@ void PlayScene::lightNearbyLamp()
             closestDistance = distance;
         }
     }
-    if (closest != nullptr)
-    {
-        closest->light();
-    }
+    return closest;
 }
 
 void PlayScene::collectOilCans()
@@ -323,6 +327,26 @@ void PlayScene::render(SDL_Renderer* renderer)
                     140, 155, 220);
     }
 
+    // Drawn after the lighting so they show in the dark (playtest Issue #2): a gold ring round
+    // every unlit lamp, so the player can see which are left, and a prompt over the lamp that
+    // E would light.
+    for (const Lamp& lamp : lamps_)
+    {
+        if (!lamp.isLit())
+        {
+            const SDL_FRect box = lamp.bounds();
+            drawOutline(renderer, SDL_FRect{ origin.x + box.x - 4.0f, origin.y + box.y - 4.0f, box.w + 8.0f, box.h + 8.0f },
+                        200, 165, 80);
+        }
+    }
+    if (const Lamp* lamp = lampInReach())
+    {
+        const std::string prompt = "E: light lamp";
+        const float textWidth = static_cast<float>(prompt.size() * SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE) * 1.5f;
+        const SDL_FPoint centre = lamp->centre();
+        drawText(renderer, origin.x + centre.x - textWidth / 2.0f, origin.y + centre.y - 30.0f, prompt, 1.5f);
+    }
+
     // Drawn after the lighting so it is always readable.
     drawHud(renderer);
 }
@@ -370,8 +394,11 @@ void PlayScene::drawHud(SDL_Renderer* renderer) const
         }
     }
 
-    drawText(renderer, 648.0f, kTextY,
-             std::format("District {}    Lamps {}/{}", district_, litLampCount(), lamps_.size()), 1.0f);
+    drawText(renderer, 648.0f, kTextY, std::format("District {}", district_), 1.0f);
+
+    // Larger than the rest of the HUD, so the goal is always in view (playtest Issue #2).
+    const int lampsLeft = static_cast<int>(lamps_.size()) - litLampCount();
+    drawText(renderer, 760.0f, 11.0f, std::format("Lamps left: {}", lampsLeft), 1.5f);
 
     // The lantern's state as a coloured badge: amber when open, slate blue when shut (playtest Issue #1).
     const bool open = player_.lanternOpen();

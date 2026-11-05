@@ -49,6 +49,9 @@ private:
     void checkEnemyHits();
     int litLampCount() const;
 
+    // The closest unlit lamp near enough to light with E, or nullptr if there is none.
+    Lamp* lampInReach();
+
     // The lit lamp whose pool of light covers this map point, or nullptr if none does.
     const Lamp* litLampCovering(SDL_FPoint point) const;
 
