@@ -17,7 +17,7 @@
 #include "Scene.h"
 
 // The district being played: the player walks the dark streets with a lantern, lights the
-// lamps and picks up oil while Creepers hunt them. Lighting every lamp wins the district.
+// lamps and picks up oil while Creepers and Moths hunt them. Lighting every lamp wins the district.
 class PlayScene : public Scene, public GameActions
 {
 public:

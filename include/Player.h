@@ -32,6 +32,9 @@ public:
     // Costs one heart, unless the player was hit moments ago and is still safe.
     void takeHit();
 
+    // A Moth reached the lantern: it goes out and spills some oil. The player can open it again.
+    void snuffLantern(float oilLost);
+
 private:
     const Level& level_;
     const InputHandler& input_;

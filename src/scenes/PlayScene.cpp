@@ -10,6 +10,7 @@
 #include "GameConstants.h"
 #include "GamePaths.h"
 #include "LevelLoader.h"
+#include "Moth.h"
 #include "SceneManager.h"
 #include "scenes/ErrorScene.h"
 #include "scenes/PauseScene.h"
@@ -45,6 +46,10 @@ PlayScene::PlayScene(SceneManager& scenes)
     for (const TilePos& tile : level_.objects().creeperSpawns)
     {
         enemies_.push_back(std::make_unique<Creeper>(level_, balance_, tile));
+    }
+    for (const TilePos& tile : level_.objects().mothSpawns)
+    {
+        enemies_.push_back(std::make_unique<Moth>(level_, balance_, tile));
     }
 }
 
@@ -105,20 +110,29 @@ void PlayScene::update(double dt)
 
 void PlayScene::checkEnemyHits()
 {
-    // A hit only counts in darkness: an open lantern or a lit lamp protects the player.
-    if (player_.lanternOpen() || litLampCovering(player_.centre()) != nullptr)
-    {
-        return;
-    }
+    // A Creeper's hit only counts in darkness: an open lantern or a lit lamp protects the player.
+    const bool playerInLight = player_.lanternOpen() || litLampCovering(player_.centre()) != nullptr;
 
     const SDL_FRect playerBox = player_.bounds();
     for (const std::unique_ptr<Enemy>& enemy : enemies_)
     {
         const SDL_FRect enemyBox = enemy->bounds();
-        if (SDL_HasRectIntersectionFloat(&playerBox, &enemyBox))
+        if (!SDL_HasRectIntersectionFloat(&playerBox, &enemyBox))
         {
-            player_.takeHit();
-            return;
+            continue;
+        }
+
+        if (enemy->snuffsLantern())
+        {
+            if (player_.lanternOpen())
+            {
+                player_.snuffLantern(balance_.mothOilStolen);
+                enemy->startFleeing(player_.centre(), balance_.mothFleeSeconds);
+            }
+        }
+        else if (!playerInLight)
+        {
+            player_.takeHit();  // takeHit ignores further hits while the player is still safe
         }
     }
 }
@@ -190,9 +204,15 @@ EnemySenses PlayScene::sensesFor(const Enemy& enemy) const
     EnemySenses senses;
     senses.playerCentre = player_.centre();
 
-    // The lantern dilemma: open, it repels enemies but they notice the player from further away.
-    const float sightTiles = player_.lanternOpen() ? balance_.creeperSightTiles : balance_.creeperSightTilesLanternShut;
-    senses.sightRange = sightTiles * kTileSize;
+    // The lantern dilemma: open, it repels Creepers but every enemy notices the player from
+    // further away, and Moths only notice an open lantern at all.
+    senses.sightRange = enemy.sightRange(player_.lanternOpen());
+
+    // Light only matters to enemies that run from it.
+    if (!enemy.fleesLight())
+    {
+        return senses;
+    }
 
     const SDL_FPoint position = enemy.centre();
     if (distanceBetween(position, player_.centre()) <= player_.lightRadius() * balance_.lightCoreFraction)
@@ -272,12 +292,6 @@ void PlayScene::render(SDL_Renderer* renderer)
     for (const std::unique_ptr<Enemy>& enemy : enemies_)
     {
         enemy->render(renderer, origin);
-    }
-
-    // Moth start positions, still static until the Moth is added.
-    for (const TilePos& moth : level_.objects().mothSpawns)
-    {
-        fillRect(renderer, tileRect(moth, 10.0f), 225, 205, 255);
     }
 
     player_.render(renderer, origin);

@@ -68,6 +68,12 @@ void Player::takeHit()
     safeSecondsLeft_ = balance_.hitSafeSeconds;
 }
 
+void Player::snuffLantern(float oilLost)
+{
+    lanternOpen_ = false;
+    oil_ = std::max(0.0f, oil_ - oilLost);
+}
+
 void Player::render(SDL_Renderer* renderer, SDL_FPoint mapOrigin) const
 {
     // Flicker while safe after a hit, so the player can see it happened (on and off 10 times a second).

@@ -12,6 +12,7 @@ namespace
 
 Creeper::Creeper(const Level& level, const Balance& balance, TilePos spawn)
     : Enemy(level, balance.creeperSpeedTilesPerSecond * kTileSize,
+            balance.creeperSightTiles * kTileSize, balance.creeperSightTilesLanternShut * kTileSize,
             static_cast<float>(spawn.x) * kTileSize + (kTileSize - kCreeperSize) / 2.0f,  // centred in its tile
             static_cast<float>(spawn.y) * kTileSize + (kTileSize - kCreeperSize) / 2.0f,
             kCreeperSize, kCreeperSize, std::make_unique<PatrolState>())

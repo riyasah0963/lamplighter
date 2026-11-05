@@ -119,6 +119,7 @@ xcopy /E /I /Y /D /Q "$(SolutionDir)config" "$(OutDir)config"</Command>
     <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\EnemyState.cpp" />
     <ClCompile Include="src\Entity.cpp" />
+    <ClCompile Include="src\Moth.cpp" />
     <ClCompile Include="src\Lamp.cpp" />
     <ClCompile Include="src\LightingSystem.cpp" />
     <ClCompile Include="src\OilCan.cpp" />
@@ -148,6 +149,7 @@ xcopy /E /I /Y /D /Q "$(SolutionDir)config" "$(OutDir)config"</Command>
     <ClInclude Include="include\EnemyState.h" />
     <ClInclude Include="include\Balance.h" />
     <ClInclude Include="include\Command.h" />
+    <ClInclude Include="include\Moth.h" />
     <ClInclude Include="include\Lamp.h" />
     <ClInclude Include="include\LightingSystem.h" />
     <ClInclude Include="include\OilCan.h" />

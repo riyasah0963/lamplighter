@@ -59,6 +59,10 @@ namespace
             { "creeperSpeedTilesPerSecond", &balance.creeperSpeedTilesPerSecond },
             { "creeperSightTiles", &balance.creeperSightTiles },
             { "creeperSightTilesLanternShut", &balance.creeperSightTilesLanternShut },
+            { "mothSpeedTilesPerSecond", &balance.mothSpeedTilesPerSecond },
+            { "mothSightTiles", &balance.mothSightTiles },
+            { "mothOilStolen", &balance.mothOilStolen },
+            { "mothFleeSeconds", &balance.mothFleeSeconds },
             { "clockSeconds", &balance.clockSeconds },
             { "hitSafeSeconds", &balance.hitSafeSeconds },
         };

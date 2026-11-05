@@ -39,6 +39,9 @@
     <ClCompile Include="src\Entity.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Moth.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\Lamp.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -123,6 +126,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Command.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Moth.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Lamp.h">

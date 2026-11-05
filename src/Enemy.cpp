@@ -3,11 +3,13 @@
 #include <cmath>
 #include <utility>
 
-Enemy::Enemy(const Level& level, float speedPixelsPerSecond, float x, float y, float width, float height,
-             std::unique_ptr<EnemyState> startState)
+Enemy::Enemy(const Level& level, float speedPixelsPerSecond, float sightLanternOpen, float sightLanternShut,
+             float x, float y, float width, float height, std::unique_ptr<EnemyState> startState)
     : Entity(x, y, width, height)
     , level_(level)
     , speed_(speedPixelsPerSecond)
+    , sightLanternOpen_(sightLanternOpen)
+    , sightLanternShut_(sightLanternShut)
     , state_(std::move(startState))
 {
 }
@@ -19,6 +21,11 @@ void Enemy::update(double dt)
     {
         state_ = std::move(nextState);
     }
+}
+
+void Enemy::startFleeing(SDL_FPoint from, double seconds)
+{
+    state_ = std::make_unique<FleeState>(from, seconds);
 }
 
 void Enemy::moveToward(SDL_FPoint target, double dt)

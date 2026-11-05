@@ -51,11 +51,11 @@ public:
 class FleeState final : public EnemyState
 {
 public:
-    explicit FleeState(SDL_FPoint lightCentre) : lightCentre_(lightCentre) {}
+    explicit FleeState(SDL_FPoint lightCentre, double seconds = 0.6) : lightCentre_(lightCentre), secondsLeft_(seconds) {}
 
     std::unique_ptr<EnemyState> update(Enemy& enemy, const EnemySenses& senses, double dt) override;
 
 private:
     SDL_FPoint lightCentre_;
-    double secondsLeft_ = 0.6;
+    double secondsLeft_;
 };

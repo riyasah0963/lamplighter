@@ -23,6 +23,12 @@ creeperSpeedTilesPerSecond = 3
 creeperSightTiles = 7
 creeperSightTilesLanternShut = 3
 
+# Moths
+mothSpeedTilesPerSecond = 3.5
+mothSightTiles = 9
+mothOilStolen = 20
+mothFleeSeconds = 2
+
 # Rules of a district
 clockSeconds = 120
 startingHearts = 3
