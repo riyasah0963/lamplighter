@@ -1,6 +1,6 @@
 # Playtest round 1
 
-**Date:** 5 November 2026 · **Build:** commit `e040985` (3 districts, Creepers and Moths, oil, lamps, clock, hearts, best times) · **Where:** online
+**Date:** 5 November 2026 · **Build:** commit `ed02957` (3 districts, Creepers and Moths, oil, lamps, clock, hearts, best times) · **Where:** online
 
 Testers are labelled T1, T2, T3. No names.
 
