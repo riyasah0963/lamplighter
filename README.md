@@ -189,23 +189,23 @@ Shapes are placeholders for sprites (see the deviations table).
 
 | # | Input | Expected | Result | By |
 | --- | --- | --- | --- | --- |
-| 1 | No `district1.txt` | Error naming the missing file, no crash | Pass | Claude, 22 Oct |
+| 1 | No `district1.txt` | Error naming the missing file, no crash | Pass | Me, 22 Oct |
 | 2 | Empty level file | "Level file is empty" | Pass | Claude, 5 Nov |
-| 3 | A row 4 tiles wide in a 5-wide map | Error names line 3 and both widths | Pass | Claude, 5 Nov |
+| 3 | A row 4 tiles wide in a 5-wide map | Error names line 3 and both widths | Pass | Me, 5 Nov |
 | 4 | 2 x 2 map | "must be between 3x3 and 200x200" | Pass | Claude, 5 Nov |
 | 5 | No `P`, or two `P` | "needs exactly one player start" | Pass | Claude, 5 Nov |
 | 6 | No `L` | "needs at least one lamp" | Pass | Claude, 5 Nov |
-| 7 | Unknown character `x`, Windows line endings, blank last line | Map loads; `x` is floor | Pass | Claude, 5 Nov |
+| 7 | Unknown character `x`, Windows line endings, blank last line | Map loads; `x` is floor | Pass | Me, 5 Nov |
 | 8 | `clockSeconds = 20` | Run ends after 20 s | Pass | Me, 2 Nov |
 | 9 | `clockSeconds = fast` | Error names the line (27 on 2 Nov; 33 after the Moth settings were added) | Pass | Me, 2 Nov (message box); Claude, 5 Nov (error screen) |
 | 10 | `clockSecond = 120` (misspelt) | "unknown setting 'clockSecond'" | Pass | Me, 2 Nov |
 | 11 | Config values `12abc`, empty, `1e999`, `nan`, `inf` | "is not a number" | Pass | Claude, 2 Nov |
-| 12 | Config values `0`, `-5`, `moonlight = 300`, `startingHearts = 0` | "is not allowed for ..." | Pass | Claude, 2 Nov |
-| 13 | No config file | "Cannot open config file" | Pass | Claude, 2 Nov |
-| 14 | No `best_times.txt` | No best times shown, no crash | Pass | Claude, 5 Nov |
-| 15 | Damaged `best_times.txt` (text, negative time, unknown district, extra words) | Bad lines skipped and logged, good lines kept | Pass | Claude, 5 Nov |
-| 16 | Win, then win slower, then faster | Only the faster win replaces the best; it survives a restart | Pass | Claude, 5 Nov |
-| 17 | Moth with lantern open, with lantern shut, after snuffing | Comes closer / does not come closer / flies away | Pass | Claude, 5 Nov |
+| 12 | Config values `0`, `-5`, `moonlight = 300`, `startingHearts = 0` | "is not allowed for ..." | Pass | Me, 2 Nov |
+| 13 | No config file | "Cannot open config file" | Pass | Me, 2 Nov |
+| 14 | No `best_times.txt` | No best times shown, no crash | Pass | Me, 5 Nov |
+| 15 | Damaged `best_times.txt` (text, negative time, unknown district, extra words) | Bad lines skipped and logged, good lines kept | Pass | Me, 5 Nov |
+| 16 | Win, then win slower, then faster | Only the faster win replaces the best; it survives a restart | Pass | Me, 5 Nov |
+| 17 | Moth with lantern open, with lantern shut, after snuffing | Comes closer / does not come closer / flies away | Pass | Me, 5 Nov |
 
 ## Playtesting evidence and reflection
 
