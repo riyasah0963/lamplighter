@@ -211,12 +211,17 @@ Shapes are placeholders for sprites (see the deviations table).
 
 Evidence is in [docs/playtesting](docs/playtesting).
 
-**[You write this]** Cover:
-- who took part (how many, how often they play games, no names)
-- what you asked and watched
-- the main feedback
-- what you changed because of it, linking the GitHub Issues and the commits that closed them
-- what is still limited
+**Who and how.** One round of playtesting was conducted online on 5 November 2026 with three testers: one who plays games daily, one weekly, and one sometimes. Each played District 1 three times. I gave them only the goal and controls, observed their first run without helping, and then asked them to complete a questionnaire with seven 1–5 ratings and four open questions. The full results are in [round-1/notes.md](docs/playtesting/round-1/notes.md).
+
+**What they said.** The core idea came across clearly: understanding the goal averaged 4.7, tension 4.7, and wanting to play again 4.7. This supports the proposal's aim of creating a tense and replayable game. However, resource and enemy balancing were weaker areas. Oil fairness averaged 3.0, clock fairness 3.0, and Creeper fairness 3.0. The tester who plays games least frequently gave lower ratings, particularly for oil and enemy difficulty. Four of the nine runs were lost: two to Creepers and two when the clock ran out. All three testers won by their third run, suggesting that the game became easier to understand with practice. In the open answers, T3 struggled to identify whether the lantern was open or shut, T1 wanted clearer feedback when close enough to light a lamp, and T2 wanted to see how many lamps remained.
+
+**What changed.** The findings were converted into GitHub Issues, and each was closed by the commit that fixed it:
+
+- [#1](https://github.com/riyasah0963/lamplighter/issues/1), lantern state and low oil hard to see: added a coloured OPEN/SHUT badge, an outline around the player when the lantern is shut, and a flashing LOW OIL warning.
+- [#2](https://github.com/riyasah0963/lamplighter/issues/2), unclear lamp interactions: added gold rings around unlit lamps, an "E: light lamp" prompt, and a larger "Lamps left" count.
+- [#3](https://github.com/riyasah0963/lamplighter/issues/3), difficulty balancing: the tested build used a 120-second clock and 45 seconds of oil; these were increased to 150 seconds and 55 seconds respectively. Since the balance values load from `config/balance.txt`, this was changed without modifying the game code.
+
+**Limitations.** This was a single round involving only three testers and was conducted later than planned. Individual run times were not recorded, so the results document uses "not recorded" rather than estimated times. The changes have not yet been tested with new players, meaning their effectiveness cannot be confirmed. A second round should focus on whether the revised time and oil balance feels fair, whether the lantern indicators improve understanding, and whether players understand why Moths follow an open lantern.
 
 ## Further details
 
