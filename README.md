@@ -5,7 +5,7 @@ Relight every street lamp in the district before the candle-clock burns out, whi
 
 ## Video
 
-YouTube (unlisted, 1080p, max 10 minutes): **[You add the link]**
+YouTube (unlisted, 1080p, max 10 minutes): https://youtu.be/0HP1wR8c6iE
 
 ## How to run
 
